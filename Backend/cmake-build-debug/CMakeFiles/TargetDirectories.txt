@@ -1,0 +1,3 @@
+E:/Minesweeper/task 12/Backend/cmake-build-debug/CMakeFiles/cvicenie12.dir
+E:/Minesweeper/task 12/Backend/cmake-build-debug/CMakeFiles/edit_cache.dir
+E:/Minesweeper/task 12/Backend/cmake-build-debug/CMakeFiles/rebuild_cache.dir

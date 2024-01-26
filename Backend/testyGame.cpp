@@ -282,3 +282,32 @@ TEST(TestGame, RegenerateGame) {
     gameBoard.recreate();
     ASSERT_EQ(GameStatus::Going, gameBoard.getStatus());
 }
+
+TEST(TestGame, ReadBoardFromFile) {
+    Board gameBoard("gameBoard.txt");
+    gameBoard.pick(0, 0);
+    gameBoard.pick(0, 2);
+    ASSERT_EQ(GameStatus::Lose, gameBoard.getStatus());
+    gameBoard.recreate();
+    ASSERT_EQ(GameStatus::Going, gameBoard.getStatus());
+}
+
+TEST(TestGame, ReadBoardFromFileWithRestartFlomFile) {
+    Board gameBoard("gameBoard.txt");
+    gameBoard.pick(0, 0);
+    gameBoard.pick(0, 2);
+    ASSERT_EQ(GameStatus::Lose, gameBoard.getStatus());
+    gameBoard.recreate("gameBoard.txt");
+    ASSERT_EQ(GameStatus::Going, gameBoard.getStatus());
+}
+
+TEST(TestGame, GameModel) {
+    Board gameBoard("gameBoard.txt");
+    gameBoard.pick(0, 0);
+    ASSERT_EQ(GameStatus::Going, gameBoard.getStatus());
+    gameBoard.saveToFile("gameBoard2.txt");
+    Board gameBoard2("gameBoard2.txt");
+    gameBoard2.pick(1, 1);
+    ASSERT_EQ(GameStatus::Lose, gameBoard2.getStatus());
+}
+

@@ -1,0 +1,15 @@
+# ninja log v5
+21	1491	7279977021355365	CMakeFiles/cvicenie12.dir/GoogleTest/gtest-filepath.cc.obj	f47f284833c5cf09
+8	1765	7280012050638317	CMakeFiles/cvicenie12.dir/Board.cpp.obj	2cc6077a3b6e1051
+80	1849	7279977024933805	CMakeFiles/cvicenie12.dir/GoogleTest/gtest-printers.cc.obj	83c2e468f636c145
+50	2468	7279977031121149	CMakeFiles/cvicenie12.dir/GoogleTest/gtest-typed-test.cc.obj	cb784865490d2ed8
+70	4827	7279977054719303	CMakeFiles/cvicenie12.dir/GoogleTest/gtest-test-part.cc.obj	5d62751c4b37c3ee
+114	2044	7279977026906126	CMakeFiles/cvicenie12.dir/GoogleTest/gtest_main.cc.obj	18a598fcd648415b
+15	2888	7280004712966469	CMakeFiles/cvicenie12.dir/testyGame.cpp.obj	66727b31ba2e1a6c
+29	5092	7279977057359225	CMakeFiles/cvicenie12.dir/GoogleTest/gtest-death-test.cc.obj	f813a28feb1ce56c
+38	5632	7279977062740462	CMakeFiles/cvicenie12.dir/GoogleTest/gtest-port.cc.obj	77409ea665f42d74
+89	8808	7279977094379563	CMakeFiles/cvicenie12.dir/GoogleTest/gtest.cc.obj	58202445499f1be1
+1766	4686	7280012079744611	cvicenie12.exe	5b3ebba27b398c45
+1	270	7280025887441032	build.ninja	baa2b65e27571e54
+2	273	7280025887441032	build.ninja	baa2b65e27571e54
+7	2796	7280025916269837	cvicenie12.exe	3404cde66a19b5cd

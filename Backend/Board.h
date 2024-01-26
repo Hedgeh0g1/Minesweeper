@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <fstream>
 #include "Cell.h"
 
 #pragma once
@@ -23,16 +24,19 @@ class Board {
     vector<int>dy = {-1, 0, 1, -1, 0, 1, -1, 0, 1};
 public:
     Board(int numRows, int numCols, int numMines);
-    Board(vector<vector<int>> pole);
+    Board(string fileName);
+    explicit Board(vector<vector<int>> pole);
     void recreate();
+    void recreate(string fileName);
     void plantMines(int numMines);
     void calculateBombNumberNear();
-    bool inBoard(int x, int y);
+    bool inBoard(int x, int y) const;
     bool isVisible(int x, int y);
     bool pick(int x, int y);
     int numberOfBombNear(int x, int y);
     bool markBomb(int x, int y);
     bool isFlagInCell(int x, int y);
+    void saveToFile(const string& filename);
     GameStatus getStatus(){return status;}
     void setStatus(GameStatus s){status = s;}
     void win();

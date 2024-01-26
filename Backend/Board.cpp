@@ -1,3 +1,5 @@
+#include <limits>
+#include <utility>
 #include "Board.h"
 #include "NumberException.h"
 
@@ -77,7 +79,7 @@ void Board::calculateBombNumberNear() {
     }
 }
 
-bool Board::inBoard(int x, int y) {
+bool Board::inBoard(int x, int y) const {
     if(x < 0 || y < 0)
         return false;
     if(x >= this->rows || y >= this->cols)
@@ -105,20 +107,20 @@ bool Board::pick(int x, int y) {
         return false;
     }
     if(cells[x][y].getAdjacentMines() == 0) {
-        queue<pair<int, int >> q;
-        q.push({x, y});
-        while (!q.empty()) {
-            pair<int, int> koor = q.front();
-            int x = koor.first;
-            int y = koor.second;
-            q.pop();
+        queue<pair<int, int >> sequence;
+        sequence.push({x, y});
+        while (!sequence.empty()) {
+            pair<int, int> coordinates = sequence.front();
+            int x = coordinates.first;
+            int y = coordinates.second;
+            sequence.pop();
             cells[x][y].makeVisible();
             for (int j = 0; j < 9; j++) {
                 int nx = x + dx[j];
                 int ny = y + dy[j];
                 if (nx >= 0 && nx < this->cols && ny >= 0 && ny < this->rows && !cells[nx][ny].isCellVisible()) {
                     if (!cells[nx][ny].hasMine() && cells[nx][ny].getAdjacentMines() == 0 && !cells[nx][ny].isFlag()) {
-                        q.push({nx, ny});
+                        sequence.push({nx, ny});
                     } else {
                         if (!cells[nx][ny].hasMine() && !cells[nx][ny].isFlag()) {
                             cells[nx][ny].makeVisible();
@@ -186,4 +188,77 @@ bool Board::isFlagInCell(int x, int y) {
         throw NumberException("Wrong coordinates of point on board");
     }
     return cells[x][y].isFlag();
+}
+
+void Board::saveToFile(const string& filename){
+    ofstream outFile(filename, ios::trunc);
+    if(!outFile.is_open()){
+        cerr << "Error of opening file\n";
+        return;
+    }
+    outFile << this->rows << " " << this->cols << " " << 3 << "\n";
+    for(int i = 0;i<this->rows;i++){
+        for(int j = 0;j<this->cols;j++){
+            if(cells[i][j].hasMine())
+                outFile << '@';
+            else
+                outFile << '.';
+        }
+        outFile << "\n";
+    }
+    outFile.close();
+}
+
+Board::Board(string fileName) {
+    ifstream inFile;
+    inFile.open(fileName);
+    if (!inFile) {
+        return;
+    }
+    if (!(inFile.is_open())) {
+        cerr << "Impossible to open file with this name!" << endl;
+        return;
+    }
+    int rows, cols, mines;
+    if (!(inFile >> rows >> cols >> mines)) {
+        cerr << "Error reading rows and cols from file!" << endl;
+        inFile.close();
+        return;
+    }
+    inFile.ignore(numeric_limits<streamsize>::max(), '\n');
+    string line;
+    int linesNumber = 0;
+    vector<vector<Cell>> board;
+    while (getline(inFile, line)) {
+        if(line.size() != cols){
+            throw NumberException("Wrong size of board");
+        }
+        vector <Cell> mines;
+        for(int j = 0;j<line.size();j++){
+            Cell c;
+            if(line[j] == '@'){
+                c.setMine();
+            }
+            mines.push_back(c);
+        }
+        board.push_back(mines);
+        linesNumber++;
+    }
+    if(linesNumber != rows){
+        throw NumberException("Wrong size of board");
+    }
+    this->rows = rows;
+    this->cols = cols;
+    this->cells = board;
+    this->status = GameStatus::Going;
+    calculateBombNumberNear();
+}
+
+void Board::recreate(string fileName) {
+    Board board(std::move(fileName));
+    this->cols = board.cols;
+    this->rows = board.rows;
+    this->cells = board.cells;
+    this->status = GameStatus::Going;
+    calculateBombNumberNear();
 }
