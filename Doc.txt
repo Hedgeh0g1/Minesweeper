@@ -1,0 +1,1 @@
+To start visual application You need to run Visual/Win32/Debug/Project2.exe

@@ -1,0 +1,82 @@
+cmake_minimum_required(VERSION 3.26)
+project(task_12)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(Backend)
+include_directories(Backend/GoogleTest/gtest)
+include_directories(Backend/GoogleTest/gtest/internal)
+include_directories(Backend/GoogleTest/gtest/internal/custom)
+include_directories(Backend/GoogleTest/src)
+include_directories(Backend/gtest)
+include_directories(Backend/gtest/internal)
+include_directories(Backend/gtest/internal/custom)
+include_directories(Visual)
+
+add_executable(task_12
+        Backend/GoogleTest/gtest/internal/custom/gtest-port.h
+        Backend/GoogleTest/gtest/internal/custom/gtest-printers.h
+        Backend/GoogleTest/gtest/internal/custom/gtest.h
+        Backend/GoogleTest/gtest/internal/gtest-death-test-internal.h
+        Backend/GoogleTest/gtest/internal/gtest-filepath.h
+        Backend/GoogleTest/gtest/internal/gtest-internal.h
+        Backend/GoogleTest/gtest/internal/gtest-linked_ptr.h
+        Backend/GoogleTest/gtest/internal/gtest-param-util-generated.h
+        Backend/GoogleTest/gtest/internal/gtest-param-util.h
+        Backend/GoogleTest/gtest/internal/gtest-port-arch.h
+        Backend/GoogleTest/gtest/internal/gtest-port.h
+        Backend/GoogleTest/gtest/internal/gtest-string.h
+        Backend/GoogleTest/gtest/internal/gtest-tuple.h
+        Backend/GoogleTest/gtest/internal/gtest-type-util.h
+        Backend/GoogleTest/gtest/gtest-death-test.h
+        Backend/GoogleTest/gtest/gtest-message.h
+        Backend/GoogleTest/gtest/gtest-param-test.h
+        Backend/GoogleTest/gtest/gtest-printers.h
+        Backend/GoogleTest/gtest/gtest-spi.h
+        Backend/GoogleTest/gtest/gtest-test-part.h
+        Backend/GoogleTest/gtest/gtest-typed-test.h
+        Backend/GoogleTest/gtest/gtest.h
+        Backend/GoogleTest/gtest/gtest_pred_impl.h
+        Backend/GoogleTest/gtest/gtest_prod.h
+        Backend/GoogleTest/src/gtest-internal-inl.h
+        Backend/GoogleTest/gtest-death-test.cc
+        Backend/GoogleTest/gtest-filepath.cc
+        Backend/GoogleTest/gtest-port.cc
+        Backend/GoogleTest/gtest-printers.cc
+        Backend/GoogleTest/gtest-test-part.cc
+        Backend/GoogleTest/gtest-typed-test.cc
+        Backend/GoogleTest/gtest.cc
+        Backend/GoogleTest/gtest_main.cc
+        Backend/gtest/internal/custom/gtest-port.h
+        Backend/gtest/internal/custom/gtest-printers.h
+        Backend/gtest/internal/custom/gtest.h
+        Backend/gtest/internal/gtest-death-test-internal.h
+        Backend/gtest/internal/gtest-filepath.h
+        Backend/gtest/internal/gtest-internal.h
+        Backend/gtest/internal/gtest-linked_ptr.h
+        Backend/gtest/internal/gtest-param-util-generated.h
+        Backend/gtest/internal/gtest-param-util.h
+        Backend/gtest/internal/gtest-port-arch.h
+        Backend/gtest/internal/gtest-port.h
+        Backend/gtest/internal/gtest-string.h
+        Backend/gtest/internal/gtest-tuple.h
+        Backend/gtest/internal/gtest-type-util.h
+        Backend/gtest/gtest-death-test.h
+        Backend/gtest/gtest-message.h
+        Backend/gtest/gtest-param-test.h
+        Backend/gtest/gtest-printers.h
+        Backend/gtest/gtest-spi.h
+        Backend/gtest/gtest-test-part.h
+        Backend/gtest/gtest-typed-test.h
+        Backend/gtest/gtest.h
+        Backend/gtest/gtest_pred_impl.h
+        Backend/gtest/gtest_prod.h
+        Backend/Board.cpp
+        Backend/Board.h
+        Backend/Cell.h
+        Backend/NumberException.h
+        Backend/testyGame.cpp
+        Visual/Project2.cpp
+        Visual/Project2PCH1.h
+        Visual/Unit2.cpp
+        Visual/Unit2.h)
