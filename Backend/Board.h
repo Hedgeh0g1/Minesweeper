@@ -25,7 +25,7 @@ class Board {
 public:
     Board(int numRows, int numCols, int numMines);
     Board(string fileName);
-    explicit Board(vector<vector<int>> pole);
+    Board(vector<vector<int>> board);
     void recreate();
     void recreate(string fileName);
     void plantMines(int numMines);

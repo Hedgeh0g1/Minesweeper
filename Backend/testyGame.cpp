@@ -1,7 +1,6 @@
 // Copyright 2005, Google Inc.
 // All rights reserved.
 
-#include <iostream>
 #include "gtest/gtest.h"
 #include "NumberException.h"
 
@@ -10,26 +9,26 @@
 using namespace ::testing;
 
 TEST(TestGame, LoseGame) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 1, 1, 0},
             {0, 0, 0, 0},
             {0, 1, 0, 0},
             {1, 0, 0, 0},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     ASSERT_EQ(false, gameBoard.pick(0, 0));
     ASSERT_EQ(GameStatus::Lose, gameBoard.getStatus());
     ASSERT_EQ(true, gameBoard.inBoard(0, 0));
 }
 
 TEST(TestGame, WinGame) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 1, 1, 0},
             {0, 0, 0, 0},
             {0, 1, 0, 0},
             {1, 0, 0, 0},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     ASSERT_EQ(true, gameBoard.pick(1, 0));
     ASSERT_EQ(GameStatus::Going, gameBoard.getStatus());
     gameBoard.pick(1, 1);
@@ -54,13 +53,13 @@ TEST(TestGame, WinGame) {
 }
 
 TEST(TestGame, BFSTestWhenPickNumber) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 0, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     ASSERT_EQ(true, gameBoard.pick(1, 1));
     ASSERT_EQ(GameStatus::Going, gameBoard.getStatus());
     ASSERT_EQ(false, gameBoard.isVisible(0, 0));
@@ -71,13 +70,13 @@ TEST(TestGame, BFSTestWhenPickNumber) {
 }
 
 TEST(TestGame, TestOpenedCells) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 1, 1, 0},
             {1, 0, 1, 0},
             {1, 1, 1, 0},
             {0, 0, 0, 0},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     ASSERT_EQ(-1, gameBoard.numberOfBombNear(1, 1));
     ASSERT_EQ(true, gameBoard.pick(1, 1));
     ASSERT_EQ(8, gameBoard.numberOfBombNear(1, 1));
@@ -85,13 +84,13 @@ TEST(TestGame, TestOpenedCells) {
 }
 
 TEST(TestGame, NotFinishedGame) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 1, 1, 0},
             {1, 0, 1, 0},
             {1, 1, 1, 0},
             {0, 0, 0, 0},
-    }; /// 1 means mine
-    Board gameBoard(pole);
+    };
+    Board gameBoard(board);
     gameBoard.pick(1, 1);
     gameBoard.markBomb(1, 1);
     ASSERT_EQ(8, gameBoard.numberOfBombNear(1, 1));
@@ -99,13 +98,13 @@ TEST(TestGame, NotFinishedGame) {
 }
 
 TEST(TestGame, WrongPick) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 1, 1, 0},
             {1, 0, 1, 0},
             {1, 1, 1, 0},
             {0, 0, 0, 0},
-    }; /// 1 means mine
-    Board gameBoard(pole);
+    };
+    Board gameBoard(board);
     ASSERT_THROW(gameBoard.pick(10, 10), NumberException);
     gameBoard.markBomb(1, 1);
     ASSERT_EQ(-1, gameBoard.numberOfBombNear(1, 1));
@@ -113,13 +112,13 @@ TEST(TestGame, WrongPick) {
 }
 
 TEST(TestGame, PickOpenCell) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 1, 1, 0},
             {1, 0, 1, 0},
             {1, 1, 1, 0},
             {0, 0, 0, 0},
-    }; /// 1 means mine
-    Board gameBoard(pole);
+    };
+    Board gameBoard(board);
     gameBoard.pick(1, 1);
     gameBoard.markBomb(1, 1);
     ASSERT_EQ(8, gameBoard.numberOfBombNear(1, 1));
@@ -127,13 +126,13 @@ TEST(TestGame, PickOpenCell) {
 }
 
 TEST(TestGame, ChcekPotentionalBombs) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 1, 1, 0},
             {1, 0, 1, 0},
             {1, 1, 1, 0},
             {0, 0, 0, 0},
-    }; /// 1 means mine
-    Board gameBoard(pole);
+    };
+    Board gameBoard(board);
     gameBoard.markBomb(1, 1);
     ASSERT_EQ(-1, gameBoard.numberOfBombNear(1, 1));
     ASSERT_EQ(false, gameBoard.isVisible(1, 1));
@@ -142,13 +141,13 @@ TEST(TestGame, ChcekPotentionalBombs) {
 }
 
 TEST(TestGame, CantRestartGame) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 1, 1, 0},
             {1, 0, 1, 0},
             {1, 1, 1, 0},
             {0, 0, 0, 0},
-    }; /// 1 means mine
-    Board gameBoard(pole);
+    };
+    Board gameBoard(board);
     gameBoard.pick(0, 1);
     gameBoard.markBomb(0, 1);
     ASSERT_EQ(-1, gameBoard.numberOfBombNear(0, 1));
@@ -164,13 +163,13 @@ TEST(TestGame, BadNumberOfMines) {
 }
 
 TEST(TestGame, BFSTestWhenPickEmptyCell) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 0, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     gameBoard.pick(3, 3);
     ASSERT_EQ(true, gameBoard.isVisible(1, 1));
     ASSERT_EQ(true, gameBoard.isVisible(1, 0));
@@ -182,13 +181,13 @@ TEST(TestGame, BFSTestWhenPickEmptyCell) {
 }
 
 TEST(TestGame, BFSTestWhenPickFieldAndEmptyCell) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 0, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     gameBoard.pick(1, 1);
     ASSERT_EQ(true, gameBoard.isVisible(1, 1));
     ASSERT_EQ(false, gameBoard.isVisible(1, 0));
@@ -205,13 +204,13 @@ TEST(TestGame, BFSTestWhenPickFieldAndEmptyCell) {
 }
 
 TEST(TestGame, BFSInIndependentParts) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {1, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, 1, 0},
             {0, 0, 0, 1},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     gameBoard.pick(0, 3);
     ASSERT_EQ(true, gameBoard.isVisible(1, 2));
     ASSERT_EQ(true, gameBoard.isVisible(0, 2));
@@ -232,26 +231,26 @@ TEST(TestGame, BFSInIndependentParts) {
 }
 
 TEST(TestGame, BFSEmptyBoard) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {0, 0, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     ASSERT_EQ(GameStatus::Going, gameBoard.getStatus());
     gameBoard.pick(0, 3);
     ASSERT_EQ(GameStatus::Win, gameBoard.getStatus());
 }
 
 TEST(TestGame, BFSWrongBombpeack) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {0, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     ASSERT_EQ(GameStatus::Going, gameBoard.getStatus());
     gameBoard.pick(0, 3);
     gameBoard.markBomb(1, 1);
@@ -270,13 +269,13 @@ TEST(TestGame, ManyPicks) {
 }
 
 TEST(TestGame, RegenerateGame) {
-    vector<vector<int>> pole = {
+    vector<vector<int>> board = {
             {0, 0, 0, 0},
             {0, 1, 0, 0},
             {0, 0, 0, 0},
             {0, 0, 0, 0},
     };
-    Board gameBoard(pole);
+    Board gameBoard(board);
     gameBoard.pick(1, 1);
     ASSERT_EQ(GameStatus::Lose, gameBoard.getStatus());
     gameBoard.recreate();
@@ -310,4 +309,3 @@ TEST(TestGame, GameModel) {
     gameBoard2.pick(1, 1);
     ASSERT_EQ(GameStatus::Lose, gameBoard2.getStatus());
 }
-
